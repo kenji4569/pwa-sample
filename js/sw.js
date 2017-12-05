@@ -12,34 +12,23 @@ self.addEventListener("activate", function(event) {
 
 self.addEventListener("push", function(event) {
     console.log("Push message received", event);
-    event.waitUntil(getEndpoint().then(function(endpoint) {
-        //通知内容をサーバに取得しに行きます。
-        return fetch("/notifications.php?endpoint=" + endpoint);
-            }).then(function(response) {
-                if (response.status === 200) {
-                    return response.json();
-                }
-                throw new Error("notification api response error")
-                    }).then(function(response) {
-                        //TODO デザインやボタンの有無などの調整が必要
-                        return self.registration.showNotification(response.title, {
-                            icon: response.icon,
-                            body: response.body,
-                            tag: "push-test",
-                            actions: [{
-                                action: "act1",
-                                title: "ボタン１"
-                            }, {
-                                action: "act2",
-                                title: "ボタン２"
-                            }],
-                            vibrate: [200, 100, 200, 100, 200, 100, 200],
-                            data: {
-                                url: response.url
-                            }
-                        })
-                    })
-    );
+    self.registration.pushManager.getSubscription().then(function(subscription) {
+        if (subscription) {
+            console.log("Subscription:", subscription);
+            self.registration.showNotification('title', {
+              body: 'xxx',
+              tag: "push-test",
+              actions: [{
+                  action: "act1",
+                  title: "ボタン１"
+              }, {
+                  action: "act2",
+                  title: "ボタン２"
+              }]
+          })
+        }
+        throw new Error("User not subscribed");
+    });
 });
 //押したaction名はnotificationclickのevent.actionで取得できます。
 
@@ -61,12 +50,3 @@ self.addEventListener("notificationclick", function(event) {
         })
     );
 });
-
-function getEndpoint() {
-    return self.registration.pushManager.getSubscription().then(function(subscription) {
-        if (subscription) {
-            return subscription.endpoint;
-        }
-        throw new Error("User not subscribed");
-    });
-}
