@@ -1,8 +1,45 @@
+
+<html>
+  <head>Notifications Test</head>
+  <body>
+    <p>
+      Hello Notifications!
+    </p>
+  </body>
+  <script src='https://www.gstatic.com/firebasejs/4.7.0/firebase.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/4.7.0/firebase-messaging.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script src='notification.js'></script>
+  <script src='firebase-messaging-sw.js'></script>
+</html>
+
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Hello</title>
-</head>
-<body>Hello</body>
+  <head>
+    <meta charset="utf-8">
+    <link rel="manifest" href="./manifest.json">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDb1cn6aWezFzXZNYltEpt7DrCrbpOya3g",
+        authDomain: "supple-design-187902.firebaseapp.com",
+        databaseURL: "https://supple-design-187902.firebaseio.com",
+        projectId: "supple-design-187902",
+        storageBucket: "",
+        messagingSenderId: "1004766588910"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <h1>Web Push Test</h1>
+    <a href="#" id="push_regist"  style="display:none">通知登録して！！！！</a><br>
+    <a href="#" id="push_delete"  style="display:none">通知登録消して！！！！</a><br>
+  </body>
 </html>
