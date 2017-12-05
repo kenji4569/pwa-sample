@@ -14,7 +14,7 @@ self.addEventListener("push", function(event) {
     console.log("Push message received", event);
     self.registration.pushManager.getSubscription().then(function(subscription) {
         if (subscription) {
-            console.log("Data:", event.data);
+            console.log("subscription:", subscription);
             self.registration.showNotification('title', {
               body: 'xxx',
               tag: "push-test",
@@ -27,7 +27,7 @@ self.addEventListener("push", function(event) {
               }]
           })
         } else {
-          throw new Error("User not subscribed");
+          //throw new Error("User not subscribed");
         }
     });
 });
